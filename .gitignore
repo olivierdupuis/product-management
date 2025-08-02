@@ -1,0 +1,37 @@
+# Cache files
+.obsidian
+
+# Python
+.env
+.python-version
+uv.lock
+
+# Environments
+**/.env
+**/.venv*
+uv.lock
+
+# local files
+.DS_Store
+
+# python
+dist
+logs
+__pycache__
+
+# dagster
+.dagster
+
+# dbt
+**/target/*
+!**/target/manifest.json
+**/dbt_packages/
+**/logs/
+**/.user.yml
+**/package-lock.yml
+
+# obsidian
+**/.obsidian/
+
+# Datagrip
+**/tools/datagrip/.idea/

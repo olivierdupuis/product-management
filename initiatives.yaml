@@ -1,0 +1,184 @@
+# Product Management Tracking
+# This file tracks initiatives, projects, and tasks across sessions
+# Structure: initiatives → projects → tasks
+
+metadata:
+  version: "1.0"
+  created: "2025-07-31"
+  last_updated: "2025-07-31"
+
+initiatives:
+  barkbox-engagement:
+    id: "barkbox-engagement"
+    name: "Barkbox engagement"
+    description: "Client engagement and analytics work for Barkbox"
+    status: "active"
+    target_date: "2025-10-31"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+    
+  consensus-engagement:
+    id: "consensus-engagement"
+    name: "Consensus engagement"
+    description: "Client engagement work for Consensus"
+    status: "active"
+    target_date: "2025-08-08"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+    
+  rittman-analytics-retainer:
+    id: "rittman-analytics-retainer"
+    name: "Rittman Analytics as Retainer Client"
+    description: "Ongoing retainer client work for Rittman Analytics"
+    status: "active"
+    target_date: "2025-09-30"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+    
+  listedtech-retainer:
+    id: "listedtech-retainer"
+    name: "ListEdTech as Retainer Client"
+    description: "Ongoing retainer client work for ListEdTech"
+    status: "active"
+    target_date: "2025-09-30"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+    
+  wire-ecosystem-foundations:
+    id: "wire-ecosystem-foundations"
+    name: "Wire Ecosystem Foundations"
+    description: "Productionize Wire as an Agentic Delivery Framework"
+    status: "active"
+    target_date: "2025-09-30"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: ["wire-framework-core", "wire-delivery-orchestration", "wire-developer-experience"]
+    
+  automations-01:
+    id: "automations-01"
+    name: "Automations 0.1"
+    description: "Set up Automations platform with a first workflow to move Fathom call summaries to Obsidian"
+    status: "active"
+    target_date: "2025-08-08"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+    
+  pulse-01:
+    id: "pulse-01"
+    name: "Pulse 0.1"
+    description: "Data product analytics and insights platform"
+    status: "active"
+    target_date: "2025-09-26"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+    
+  rittman-analytics-2025q4:
+    id: "rittman-analytics-2025q4"
+    name: "Rittman Analytics - 2025Q4 Engagement"
+    description: "Q4 2025 engagement work for Rittman Analytics"
+    status: "planning"
+    target_date: "2025-12-31"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+    
+  listedtech-2025q4:
+    id: "listedtech-2025q4"
+    name: "ListEdTech - 2025Q4 Engagement"
+    description: "Q4 2025 engagement work for ListEdTech"
+    status: "planning"
+    target_date: "2025-12-31"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+    
+  climate-narratives-restart:
+    id: "climate-narratives-restart"
+    name: "Climate Narratives Restart"
+    description: "Restart of climate narratives data product initiative"
+    status: "backlog"
+    target_date: "2025-10-31"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+    
+  coding-server:
+    id: "coding-server"
+    name: "Coding Server"
+    description: "Development environment and coding server setup"
+    status: "backlog"
+    target_date: "2025-12-31"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+
+projects:
+  wire-framework-core:
+    id: "wire-framework-core"
+    initiative_id: "wire-ecosystem-foundations"
+    name: "Wire Framework Core"
+    description: "Core framework with playbooks and mechanics for running them in delivery projects"
+    status: "active"
+    linear_project_id: "1c2a8d99-ba77-4f65-a24b-fefb73e116c8"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    tasks: []
+    
+  wire-delivery-orchestration:
+    id: "wire-delivery-orchestration"
+    initiative_id: "wire-ecosystem-foundations"
+    name: "Wire Delivery Orchestration"
+    description: "CLI tools and mechanisms for setting up and syncing delivery projects"
+    status: "active"
+    linear_project_id: "77943fb2-6b5f-4410-9d43-14104ac76cb6"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    tasks: []
+    
+  wire-developer-experience:
+    id: "wire-developer-experience"
+    initiative_id: "wire-ecosystem-foundations"
+    name: "Wire Developer Experience"
+    description: "Developer experience for working through delivery projects with Wire framework integration"
+    status: "active"
+    linear_project_id: "479f5a27-1a1f-4a07-9740-aa3bcf911936"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    tasks: []
+    
+  # Example structure:
+  # data-ingestion-api:
+  #   id: "data-ingestion-api"
+  #   initiative_id: "republic-platform"
+  #   name: "Data Ingestion API"
+  #   description: "RESTful API for data ingestion workflows"
+  #   status: "planning"  # planning, active, completed, on-hold, cancelled
+  #   linear_project_id: null
+  #   created: "2025-07-31"
+  #   updated: "2025-07-31"
+  #   tasks: ["design-api-schema", "implement-endpoints"]
+
+tasks: {}
+  # Example structure:
+  # design-api-schema:
+  #   id: "design-api-schema"
+  #   project_id: "data-ingestion-api"
+  #   name: "Design API Schema"
+  #   description: "Define OpenAPI schema for data ingestion endpoints"
+  #   status: "todo"  # todo, in_progress, completed, blocked, cancelled
+  #   priority: "high"  # high, medium, low
+  #   linear_issue_id: null
+  #   created: "2025-07-31"
+  #   updated: "2025-07-31"
+  #   user_story: ""
+  #   acceptance_criteria: []
+  #   deliverables: []
+  #   technical_specs: []
+  #   estimated_hours: null
+  #   actual_hours: null
