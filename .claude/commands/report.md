@@ -15,17 +15,30 @@ The user can request reports with different scopes:
 
 When this command is invoked:
 
-1. **Read the initiatives.yaml file** from the project root
+1. **Generate the report** using Python utilities:
+   ```bash
+   python -c "
+   from utils.yaml_handler import load_initiatives
+   from utils.formatters import format_full_report
+   data = load_initiatives()
+   report = format_full_report(data)
+   with open('initiatives.md', 'w') as f:
+       f.write(report)
+   print('Report generated: initiatives.md')
+   "
+   ```
 2. **Parse the user's request** to determine the scope:
    - Extract any initiative-id, project-id, or task-id mentioned
    - Default to full report if no specific ID is provided
 3. **Generate the appropriate report** based on scope:
 
 ### Full Report
-- Show summary counts (total initiatives, projects, tasks)
-- List all initiatives with their status
-- For each initiative, show projects and their status
-- Highlight any blocked or overdue items
+- Show legend with all status icons
+- Show summary counts (total initiatives, projects, tasks by status)
+- **## Active Initiatives** section with nested tree structure
+- **## Planned Initiatives** section with nested tree structure
+- Exclude completed and backlog initiatives from main report
+- Tree format: Initiative → Projects → Tasks with proper nesting
 
 ### Initiative Report
 - Show initiative details (name, description, status, dates)
@@ -50,11 +63,13 @@ When this command is invoked:
 
 ## Output Formatting
 
-- Use clear headers and sections
-- Include status indicators (🟢 active, 🟡 on-hold, ✅ completed, ❌ blocked, etc.)
-- Show creation and update dates
-- Highlight missing or incomplete information
-- Use tables for structured data when appropriate
+- **Legend section** with all status icons (📦 Backlog, 🚀 Staging, 📝 Todo, 🔄 In Progress, etc.)
+- **No status icons on initiative headers** - clean initiative names only
+- **Status icons on projects and tasks** for clear progress visibility
+- **Nested tree format** - Projects indented under initiatives, tasks under projects
+- **No priority information** - focus on status and task names only
+- Show creation and update dates for initiatives
+- **Exclude completed initiatives** from main report output
 
 ## Error Handling
 
@@ -68,16 +83,40 @@ When this command is invoked:
 ```
 # Product Management Report - Full
 
-## Summary
-- 🏢 Initiatives: 2 active, 0 completed
-- 📋 Projects: 4 active, 1 completed  
-- ✅ Tasks: 12 todo, 8 in_progress, 15 completed
+## Legend
+**Status Icons:**
+- 🟢 Active | 🟡 Planning | 📝 Todo | 🔄 In Progress | 📦 Backlog | 🚀 Staging | ✅ Completed
 
-## Initiatives
-### republic-platform (🟢 active)
-- **RepublicOfData.io Platform Development**
-- Projects: data-ingestion-api (🟡 planning), analytics-dashboard (🟢 active)
-- Created: 2025-07-31 | Updated: 2025-07-31
+## Summary
+- 🏢 Initiatives: 5 active, 2 planning, 2 backlog
+- 📋 Projects: 6 active, 5 planning
+- ✅ Tasks: 13 backlog, 3 todo, 1 in_progress, 1 staging, 4 completed
+
+## Active Initiatives
+
+### Barkbox engagement
+- Client engagement and analytics work for Barkbox
+- Target: 2025-10-31
+- **Projects:** None
+
+### Foundational Ecosystem  
+- Complete foundations for Wire, Pulse, and Automations products
+- Target: 2025-09-30
+- **Projects (5):**
+  - 🟢 **Wire Framework Core** (3 tasks)
+    - 📦 Wire CLI
+    - 📦 First set of agents
+    - ✅ Wire 0.1 Vision
+  - 🟢 **Automations Platform** (5 tasks)
+    - 🔄 Productionize Forge
+    - ✅ Fathom calls to Obsidian workflow
+
+## Planned Initiatives
+
+### Rittman Analytics - 2025Q4 Engagement
+- Q4 2025 engagement work for Rittman Analytics  
+- Target: 2025-12-31
+- **Projects:** None
 ```
 
 ### Project Report Output Format:

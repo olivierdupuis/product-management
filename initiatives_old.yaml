@@ -1,0 +1,398 @@
+# Product Management Tracking
+# This file tracks initiatives, projects, and tasks across sessions
+# Structure: initiatives → projects → tasks
+
+metadata:
+  version: "1.0"
+  created: "2025-07-31"
+  last_updated: "2025-07-31"
+
+initiatives:
+  barkbox-engagement:
+    id: "barkbox-engagement"
+    name: "Barkbox engagement"
+    description: "Client engagement and analytics work for Barkbox"
+    status: "active"
+    target_date: "2025-10-31"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: {}
+    
+  rittman-analytics-retainer:
+    id: "rittman-analytics-retainer"
+    name: "Rittman Analytics as Retainer Client"
+    description: "Ongoing retainer client work for Rittman Analytics"
+    status: "active"
+    target_date: "2025-09-30"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects:
+      rittman-fractional-delivery:
+        id: "rittman-fractional-delivery"
+        name: "Fractional Head of Delivery Systems"
+        description: "Fractional leadership role for delivery systems at Rittman Analytics"
+        status: "planning"
+        linear_project_id: "1bb3f9c7-9062-4b32-ae1a-65ed144d5797"
+        created: "2025-07-27"
+        updated: "2025-07-27"
+        tasks:
+          negotiate-terms-rittman:
+            id: "negotiate-terms-rittman"
+            name: "Negotiate terms"
+            description: "Contract negotiation for fractional role"
+            status: "backlog"
+            priority: "high"
+            linear_issue_id: "4f56f0de-1a2c-4f09-93e3-9aa2c78bd08a"
+            created: "2025-07-27"
+            updated: "2025-08-03"
+          rittman-roadmap:
+            id: "rittman-roadmap"
+            name: "Roadmap"
+            description: "Delivery systems roadmap development"
+            status: "backlog"
+            priority: "medium"
+            linear_issue_id: "315450aa-55d0-48fb-8092-d4f40ea7f697"
+            created: "2025-07-29"
+            updated: "2025-07-29"
+    
+  listedtech-retainer:
+    id: "listedtech-retainer"
+    name: "ListEdTech as Retainer Client"
+    description: "Ongoing retainer client work for ListEdTech"
+    status: "active"
+    target_date: "2025-09-30"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects:
+      listedtech-fractional-agentic:
+        id: "listedtech-fractional-agentic"
+        name: "Fractional Head of Agentic Transformation"
+        description: "Fractional leadership role for agentic transformation at ListEdTech"
+        status: "planning"
+        linear_project_id: "56600f90-bd44-4554-aecd-13b64b11f9f2"
+        created: "2025-07-27"
+        updated: "2025-07-27"
+        tasks:
+          negotiate-terms-listedtech:
+            id: "negotiate-terms-listedtech"
+            name: "Negotiate terms"
+            description: "Contract negotiation for fractional role"
+            status: "backlog"
+            priority: "high"
+            linear_issue_id: "b99cd317-9b95-4d5f-9901-c73686facbd1"
+            created: "2025-07-28"
+            updated: "2025-08-03"
+          listedtech-roadmap:
+            id: "listedtech-roadmap"
+            name: "Roadmap"
+            description: "Agentic transformation roadmap development"
+            status: "backlog"
+            priority: "medium"
+            linear_issue_id: "6b671bac-86f6-4e03-92ce-b143675d91a1"
+            created: "2025-07-29"
+            updated: "2025-07-29"
+    
+  wire-ecosystem-foundations:
+    id: "wire-ecosystem-foundations"
+    name: "Foundational Ecosystem"
+    description: "Complete foundations for Wire, Pulse, and Automations products"
+    status: "active"
+    target_date: "2025-09-30"
+    created: "2025-07-31"
+    updated: "2025-08-08"
+    projects:
+      wire-framework-core:
+        id: "wire-framework-core"
+        name: "Wire Framework Core"
+        description: "Core framework with playbooks and mechanics for running them in delivery projects"
+        status: "active"
+        linear_project_id: "1c2a8d99-ba77-4f65-a24b-fefb73e116c8"
+        created: "2025-07-31"
+        updated: "2025-07-31"
+        tasks:
+          wire-cli:
+            id: "wire-cli"
+            name: "Wire CLI"
+            description: "Command line interface for Wire framework"
+            status: "backlog"
+            priority: "high"
+            linear_issue_id: "63ec55ea-26a7-46e0-ba6e-1ed338a8d67a"
+            created: "2025-07-25"
+            updated: "2025-08-03"
+          wire-agents:
+            id: "wire-agents"
+            name: "First set of agents - PM, QA, architect, planner, pairing programmer"
+            description: "Core agent system for Wire framework"
+            status: "backlog"
+            priority: "high"
+            linear_issue_id: "261e8ea9-2061-4d92-a2e4-3e16dc067bc4"
+            created: "2025-07-25"
+            updated: "2025-08-03"
+          wire-vision:
+            id: "wire-vision"
+            name: "Wire 0.1 Vision"
+            description: "Vision and strategy for Wire 0.1 release"
+            status: "completed"
+            priority: "medium"
+            linear_issue_id: "7892b2bb-539f-42ca-a37a-58cbcdba4564"
+            created: "2025-07-27"
+            updated: "2025-07-29"
+      wire-delivery-orchestration:
+        id: "wire-delivery-orchestration"
+        name: "Wire Delivery Orchestration"
+        description: "CLI tools and mechanisms for setting up and syncing delivery projects"
+        status: "planning"
+        linear_project_id: "77943fb2-6b5f-4410-9d43-14104ac76cb6"
+        created: "2025-07-31"
+        updated: "2025-07-31"
+        tasks: {}
+      wire-developer-experience:
+        id: "wire-developer-experience"
+        name: "Wire Developer Experience"
+        description: "Developer experience for working through delivery projects with Wire framework integration"
+        status: "planning"
+        linear_project_id: "479f5a27-1a1f-4a07-9740-aa3bcf911936"
+        created: "2025-07-31"
+        updated: "2025-07-31"
+        tasks: {}
+      automations-platform:
+        id: "automations-platform"
+        name: "Automations Platform"
+        description: "Personal Dagster/N8N productivity platform with first workflow for Fathom call summaries to Obsidian"
+        status: "active"
+        linear_project_id: "86869987-57e0-4b5d-bc73-f2554d521bbe"
+        created: "2025-08-08"
+        updated: "2025-08-08"
+        tasks:
+          productionize-forge:
+            id: "productionize-forge"
+            name: "Productionize Forge"
+            description: "Deploy Forge to production using Hostinger and Dokploy"
+            status: "in_progress"
+            priority: "high"
+            linear_issue_id: "de2144a2-b925-4f7c-a198-b2599cd29327"
+            created: "2025-07-27"
+            updated: "2025-08-08"
+          fathom-to-obsidian:
+            id: "fathom-to-obsidian"
+            name: "Fathom calls to Obsidian workflow"
+            description: "Automated workflow for processing Fathom call recordings into Obsidian notes"
+            status: "completed"
+            priority: "medium"
+            linear_issue_id: "206cf4ed-1690-40f4-b56a-835dddb261f4"
+            created: "2025-07-27"
+            updated: "2025-08-01"
+          dagster-foundations:
+            id: "dagster-foundations"
+            name: "Dagster foundations"
+            description: "Core Dagster setup for automation workflows"
+            status: "completed"
+            priority: "medium"
+            linear_issue_id: "afa11d54-0f49-4604-80b9-1aeebf5c32a2"
+            created: "2025-07-27"
+            updated: "2025-07-29"
+          fathom-ra-email:
+            id: "fathom-ra-email"
+            name: "Fathom to Obsidian - Add RA email"
+            description: "Add Rittman Analytics email integration to Fathom workflow"
+            status: "completed"
+            priority: "low"
+            linear_issue_id: "6ae8e01b-fb57-4407-9e20-26c6f3b1b548"
+            created: "2025-08-03"
+            updated: "2025-08-04"
+          copywriting-workflow:
+            id: "copywriting-workflow"
+            name: "Automations - Workflow to improve copywriting material"
+            description: "Workflow for enhancing copywriting content"
+            status: "backlog"
+            priority: "medium"
+            linear_issue_id: "17bc5a36-9168-4076-ad03-b3d5a3e543c4"
+            created: "2025-07-30"
+            updated: "2025-08-08"
+      pulse-platform:
+        id: "pulse-platform"
+        name: "Pulse Platform"
+        description: "Intelligence generation framework for data product analytics and insights"
+        status: "planning"
+        linear_project_id: "fe4a317c-514a-41af-b43e-d2d08346721f"
+        created: "2025-08-08"
+        updated: "2025-08-08"
+        tasks:
+          deepresearch-langchain:
+            id: "deepresearch-langchain"
+            name: "Use DeepResearch patterns from LangChain"
+            description: "Integrate LangChain DeepResearch patterns into Pulse platform"
+            status: "backlog"
+            priority: "medium"
+            linear_issue_id: "137c79f5-aa13-49b8-b92b-8e59c6c1b2f4"
+            created: "2025-07-30"
+            updated: "2025-07-30"
+          topic-classification-agent:
+            id: "topic-classification-agent"
+            name: "Topic Classification Agent"
+            description: "Intelligent content classification using controlled vocabulary"
+            status: "todo"
+            priority: "high"
+            linear_issue_id: "1da7673d-e6fb-42bd-8ad2-161640c8ea38"
+            created: "2025-07-24"
+            updated: "2025-08-08"
+          relevance-scoring-agent:
+            id: "relevance-scoring-agent"
+            name: "Relevance Scoring Agent"
+            description: "Intelligent relevance assessment using LLM-powered analysis"
+            status: "backlog"
+            priority: "medium"
+            linear_issue_id: "a8ed0bfe-96ec-4939-9d1f-e3eaf1c7815e"
+            created: "2025-07-24"
+            updated: "2025-08-03"
+          gpt4-summarization-agent:
+            id: "gpt4-summarization-agent"
+            name: "GPT-4 Summarization Agent"
+            description: "Intelligent content summarization using GPT-4"
+            status: "backlog"
+            priority: "medium"
+            linear_issue_id: "9dcf8819-0188-481a-81f3-96ef4f31e4c9"
+            created: "2025-07-24"
+            updated: "2025-08-03"
+    
+    
+    
+  rittman-analytics-2025q4:
+    id: "rittman-analytics-2025q4"
+    name: "Rittman Analytics - 2025Q4 Engagement"
+    description: "Q4 2025 engagement work for Rittman Analytics"
+    status: "planning"
+    target_date: "2025-12-31"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+    
+  listedtech-2025q4:
+    id: "listedtech-2025q4"
+    name: "ListEdTech - 2025Q4 Engagement"
+    description: "Q4 2025 engagement work for ListEdTech"
+    status: "planning"
+    target_date: "2025-12-31"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+    
+  climate-narratives-restart:
+    id: "climate-narratives-restart"
+    name: "Climate Narratives Restart"
+    description: "Restart of climate narratives data product initiative"
+    status: "backlog"
+    target_date: "2025-10-31"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+    
+  coding-server:
+    id: "coding-server"
+    name: "Coding Server"
+    description: "Development environment and coding server setup"
+    status: "backlog"
+    target_date: "2025-12-31"
+    created: "2025-07-31"
+    updated: "2025-07-31"
+    projects: []
+
+  republic-business-development:
+    id: "republic-business-development"
+    name: "Republic Business Development"
+    description: "Business development activities for RepublicOfData.io"
+    status: "active"
+    target_date: "2025-12-31"
+    created: "2025-07-31"
+    updated: "2025-08-08"
+    projects:
+      content-marketing:
+        id: "content-marketing"
+        name: "Content Marketing"
+        description: "Content creation for business development"
+        status: "active"
+        linear_project_id: "903890bf-f40c-481b-a157-40c135ee6549"
+        created: "2025-08-03"
+        updated: "2025-08-03"
+        tasks:
+          listedtech-case-study:
+            id: "listedtech-case-study"
+            name: "ListEdTech - Case Study"
+            description: "Case study documentation for ListEdTech engagement"
+            status: "staging"
+            priority: "high"
+            linear_issue_id: "5789e287-6ba8-4fa3-931d-db450c9f47ba"
+            created: "2025-07-29"
+            updated: "2025-08-08"
+          share-case-study:
+            id: "share-case-study"
+            name: "Share case study with companies similar to ListEdtech"
+            description: "Use case study to connect with potential leads on linkedin"
+            status: "backlog"
+            priority: "medium"
+            linear_issue_id: "7e3eb779-b8d2-4536-8019-01a9c4964ab3"
+            created: "2025-08-03"
+            updated: "2025-08-08"
+          wire-rittman-blog:
+            id: "wire-rittman-blog"
+            name: "Blog post on Wire as a Pilot for Rittman Analytics"
+            description: "Technical blog post about Wire framework pilot"
+            status: "backlog"
+            priority: "medium"
+            linear_issue_id: "040c0451-0d05-410c-a45f-e9ac4011d809"
+            created: "2025-07-30"
+            updated: "2025-08-03"
+          wire-rittman-case-study:
+            id: "wire-rittman-case-study"
+            name: "Case study on Rittman Analytics and Development of Wire"
+            description: "Comprehensive case study combining client work and product development"
+            status: "backlog"
+            priority: "medium"
+            linear_issue_id: "b61083c1-403a-44d2-90de-d596a170cadc"
+            created: "2025-08-03"
+            updated: "2025-08-03"
+      linkedin-publishing:
+        id: "linkedin-publishing"
+        name: "LinkedIn Publishing Calendar"
+        description: "Strategic LinkedIn content for business and personal accounts"
+        status: "active"
+        linear_project_id: "4d1edbd5-2152-4028-9aa6-e8135e9e62f2"
+        created: "2025-08-08"
+        updated: "2025-08-08"
+        tasks: {}
+      website-updates:
+        id: "website-updates"
+        name: "Review Website"
+        description: "Website review and optimization"
+        status: "active"
+        linear_project_id: "3a48accd-c090-4bf1-8fb3-e2485ec0e635"
+        created: "2025-08-03"
+        updated: "2025-08-03"
+        tasks:
+          landing-page-copy:
+            id: "landing-page-copy"
+            name: "Change landing page copywriting based on updated business model"
+            description: "Update website copy to reflect current business model"
+            status: "todo"
+            priority: "high"
+            linear_issue_id: "b9a763bf-d27a-4411-9ec1-589121f0ef29"
+            created: "2025-07-30"
+            updated: "2025-08-08"
+          google-cloud-review:
+            id: "google-cloud-review"
+            name: "Review Google Cloud Console"
+            description: "Audit and optimize Google Cloud setup"
+            status: "todo"
+            priority: "medium"
+            linear_issue_id: "9ae42844-2ee3-4500-b25a-9992cef3c002"
+            created: "2025-08-02"
+            updated: "2025-08-08"
+      acquisition-experiments:
+        id: "acquisition-experiments"
+        name: "Acquisition Experiments"
+        description: "Customer acquisition experimentation"
+        status: "active"
+        linear_project_id: "f16858e5-d61a-480b-8481-b2945c66c3fd"
+        created: "2025-08-03"
+        updated: "2025-08-08"
+        tasks: {}

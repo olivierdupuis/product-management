@@ -15,7 +15,9 @@ def format_status_icon(status: str) -> str:
         'cancelled': '❌',
         'blocked': '🚫',
         'todo': '📝',
-        'in_progress': '🔄'
+        'in_progress': '🔄',
+        'backlog': '📦',
+        'staging': '🚀'
     }
     return status_icons.get(status.lower(), '❓')
 
@@ -45,10 +47,8 @@ def format_linear_status(linear_id: Any) -> str:
 
 
 def format_summary_counts(data: Dict[str, Any]) -> str:
-    """Generate summary statistics"""
+    """Generate summary statistics from nested structure"""
     initiatives = data.get('initiatives', {})
-    projects = data.get('projects', {})
-    tasks = data.get('tasks', {})
     
     # Count by status
     init_counts = {}
@@ -58,14 +58,20 @@ def format_summary_counts(data: Dict[str, Any]) -> str:
     for initiative in initiatives.values():
         status = initiative.get('status', 'unknown')
         init_counts[status] = init_counts.get(status, 0) + 1
-    
-    for project in projects.values():
-        status = project.get('status', 'unknown')
-        proj_counts[status] = proj_counts.get(status, 0) + 1
-    
-    for task in tasks.values():
-        status = task.get('status', 'unknown')
-        task_counts[status] = task_counts.get(status, 0) + 1
+        
+        # Count projects within this initiative
+        projects = initiative.get('projects', {})
+        if isinstance(projects, dict):
+            for project in projects.values():
+                status = project.get('status', 'unknown')
+                proj_counts[status] = proj_counts.get(status, 0) + 1
+                
+                # Count tasks within this project
+                tasks = project.get('tasks', {})
+                if isinstance(tasks, dict):
+                    for task in tasks.values():
+                        status = task.get('status', 'unknown')
+                        task_counts[status] = task_counts.get(status, 0) + 1
     
     summary = "## Summary\n"
     
@@ -85,54 +91,123 @@ def format_summary_counts(data: Dict[str, Any]) -> str:
 
 
 def format_full_report(data: Dict[str, Any]) -> str:
-    """Generate a full report of all initiatives, projects, and tasks"""
+    """Generate a full report of all initiatives, projects, and tasks using nested structure"""
     output = ["# Product Management Report - Full\n"]
+    
+    # Legend
+    output.append("## Legend")
+    output.append("")
+    output.append("**Status Icons:**")
+    output.append("- 🟢 Active | 🟡 Planning | ⏸️ On-Hold | ✅ Completed | ❌ Cancelled | 🚫 Blocked | 📝 Todo | 🔄 In Progress | 📦 Backlog | 🚀 Staging")
+    output.append("")
     
     # Summary
     output.append(format_summary_counts(data))
     output.append("")
     
     initiatives = data.get('initiatives', {})
-    projects = data.get('projects', {})
-    tasks = data.get('tasks', {})
     
     if not initiatives:
         output.append("No initiatives found. Use the system to create your first initiative.")
         return "\n".join(output)
     
-    output.append("## Initiatives")
+    # Group initiatives by status
+    active_initiatives = {k: v for k, v in initiatives.items() if v.get('status') == 'active'}
+    planning_initiatives = {k: v for k, v in initiatives.items() if v.get('status') == 'planning'}
     
-    for init_id, initiative in initiatives.items():
-        status_icon = format_status_icon(initiative.get('status', ''))
-        name = initiative.get('name', 'Unnamed Initiative')
-        description = initiative.get('description', '')
-        
-        output.append(f"### {init_id} ({status_icon} {initiative.get('status', 'unknown')})")
-        output.append(f"- **{name}**")
-        if description:
-            output.append(f"- {description}")
-        
-        # Get projects for this initiative
-        init_projects = [p for p in projects.values() if p.get('initiative_id') == init_id]
-        if init_projects:
-            project_names = []
-            for project in init_projects:
-                proj_status = format_status_icon(project.get('status', ''))
-                project_names.append(f"{project.get('name', project.get('id', 'Unnamed'))} ({proj_status} {project.get('status', 'unknown')})")
-            output.append(f"- Projects: {', '.join(project_names)}")
-        else:
-            output.append("- Projects: None")
-        
-        created = format_date(initiative.get('created', ''))
-        updated = format_date(initiative.get('updated', ''))
-        output.append(f"- Created: {created} | Updated: {updated}")
+    # Active Initiatives Section
+    if active_initiatives:
+        output.append("## Active Initiatives")
         output.append("")
+        
+        for init_id, initiative in active_initiatives.items():
+            status_icon = format_status_icon(initiative.get('status', ''))
+            name = initiative.get('name', 'Unnamed Initiative')
+            description = initiative.get('description', '')
+            target_date = format_date(initiative.get('target_date', ''))
+            
+            output.append(f"### {name}")
+            if description:
+                output.append(f"- {description}")
+            output.append(f"- Target: {target_date}")
+            
+            # Get projects within this initiative
+            projects = initiative.get('projects', {})
+            if isinstance(projects, dict) and projects:
+                output.append(f"- **Projects ({len(projects)}):**")
+                for proj_id, project in projects.items():
+                    proj_status_icon = format_status_icon(project.get('status', ''))
+                    proj_name = project.get('name', 'Unnamed Project')
+                    
+                    # Count tasks in this project
+                    tasks = project.get('tasks', {})
+                    task_count = len(tasks) if isinstance(tasks, dict) else 0
+                    
+                    output.append(f"  - {proj_status_icon} **{proj_name}** ({task_count} tasks)")
+                    
+                    # Show tasks if any
+                    if isinstance(tasks, dict) and tasks:
+                        for task_id, task in tasks.items():
+                            task_status_icon = format_status_icon(task.get('status', ''))
+                            task_name = task.get('name', 'Unnamed Task')
+                            output.append(f"    - {task_status_icon} {task_name}")
+            else:
+                output.append("- **Projects:** None")
+            
+            created = format_date(initiative.get('created', ''))
+            updated = format_date(initiative.get('updated', ''))
+            output.append(f"- Created: {created} | Updated: {updated}")
+            output.append("")
+    
+    # Planning Initiatives Section
+    if planning_initiatives:
+        output.append("## Planned Initiatives")
+        output.append("")
+        
+        for init_id, initiative in planning_initiatives.items():
+            status_icon = format_status_icon(initiative.get('status', ''))
+            name = initiative.get('name', 'Unnamed Initiative')
+            description = initiative.get('description', '')
+            target_date = format_date(initiative.get('target_date', ''))
+            
+            output.append(f"### {name}")
+            if description:
+                output.append(f"- {description}")
+            output.append(f"- Target: {target_date}")
+            
+            # Get projects within this initiative
+            projects = initiative.get('projects', {})
+            if isinstance(projects, dict) and projects:
+                output.append(f"- **Projects ({len(projects)}):**")
+                for proj_id, project in projects.items():
+                    proj_status_icon = format_status_icon(project.get('status', ''))
+                    proj_name = project.get('name', 'Unnamed Project')
+                    
+                    # Count tasks in this project
+                    tasks = project.get('tasks', {})
+                    task_count = len(tasks) if isinstance(tasks, dict) else 0
+                    
+                    output.append(f"  - {proj_status_icon} **{proj_name}** ({task_count} tasks)")
+                    
+                    # Show tasks if any
+                    if isinstance(tasks, dict) and tasks:
+                        for task_id, task in tasks.items():
+                            task_status_icon = format_status_icon(task.get('status', ''))
+                            task_name = task.get('name', 'Unnamed Task')
+                            output.append(f"    - {task_status_icon} {task_name}")
+            else:
+                output.append("- **Projects:** None")
+            
+            created = format_date(initiative.get('created', ''))
+            updated = format_date(initiative.get('updated', ''))
+            output.append(f"- Created: {created} | Updated: {updated}")
+            output.append("")
     
     return "\n".join(output)
 
 
 def format_initiative_report(initiative_id: str, data: Dict[str, Any]) -> str:
-    """Generate a report for a specific initiative"""
+    """Generate a report for a specific initiative using nested structure"""
     initiative = data.get('initiatives', {}).get(initiative_id)
     if not initiative:
         return f"❌ Initiative '{initiative_id}' not found.\n\nAvailable initiatives: {', '.join(data.get('initiatives', {}).keys())}"
@@ -142,34 +217,34 @@ def format_initiative_report(initiative_id: str, data: Dict[str, Any]) -> str:
     status_icon = format_status_icon(initiative.get('status', ''))
     name = initiative.get('name', 'Unnamed Initiative')
     description = initiative.get('description', '')
+    target_date = format_date(initiative.get('target_date', ''))
     
     output.append(f"**{name}** ({status_icon} {initiative.get('status', 'unknown')})")
     if description:
         output.append(f"- {description}")
+    output.append(f"- Target: {target_date}")
     
     created = format_date(initiative.get('created', ''))
     updated = format_date(initiative.get('updated', ''))
     output.append(f"- Created: {created} | Updated: {updated}")
     output.append("")
     
-    # Get projects
-    projects = data.get('projects', {})
-    init_projects = {pid: p for pid, p in projects.items() if p.get('initiative_id') == initiative_id}
+    # Get projects from nested structure
+    projects = initiative.get('projects', {})
     
-    if init_projects:
-        output.append(f"## Projects ({len(init_projects)} total)")
+    if projects:
+        output.append(f"## Projects ({len(projects)} total)")
         output.append("| Project ID | Name | Status | Tasks | Linear |")
         output.append("|------------|------|--------|--------|--------|")
         
-        tasks = data.get('tasks', {})
-        for proj_id, project in init_projects.items():
+        for proj_id, project in projects.items():
             name = project.get('name', 'Unnamed')
             status_icon = format_status_icon(project.get('status', ''))
             status = project.get('status', 'unknown')
             
-            # Count tasks
-            proj_tasks = [t for t in tasks.values() if t.get('project_id') == proj_id]
-            task_count = len(proj_tasks)
+            # Count tasks in nested structure
+            tasks = project.get('tasks', {})
+            task_count = len(tasks)
             
             linear_status = format_linear_status(project.get('linear_project_id'))
             

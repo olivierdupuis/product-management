@@ -9,7 +9,7 @@ from datetime import datetime
 
 def get_initiatives_file_path() -> Path:
     """Get the path to the initiatives.yaml file"""
-    return Path(__file__).parent.parent.parent / "initiatives.yaml"
+    return Path(__file__).parent.parent / "initiatives.yaml"
 
 
 def load_initiatives() -> Dict[str, Any]:
@@ -67,35 +67,46 @@ def get_initiative(initiative_id: str) -> Optional[Dict[str, Any]]:
 
 
 def get_project(project_id: str) -> Optional[Dict[str, Any]]:
-    """Get a specific project by ID"""
+    """Get a specific project by ID from nested structure"""
     data = load_initiatives()
-    return data.get('projects', {}).get(project_id)
+    initiatives = data.get('initiatives', {})
+    
+    for initiative in initiatives.values():
+        projects = initiative.get('projects', {})
+        if project_id in projects:
+            return projects[project_id]
+    return None
 
 
 def get_task(task_id: str) -> Optional[Dict[str, Any]]:
-    """Get a specific task by ID"""
+    """Get a specific task by ID from nested structure"""
     data = load_initiatives()
-    return data.get('tasks', {}).get(task_id)
+    initiatives = data.get('initiatives', {})
+    
+    for initiative in initiatives.values():
+        projects = initiative.get('projects', {})
+        for project in projects.values():
+            tasks = project.get('tasks', {})
+            if task_id in tasks:
+                return tasks[task_id]
+    return None
 
 
 def get_projects_for_initiative(initiative_id: str) -> Dict[str, Any]:
-    """Get all projects belonging to an initiative"""
+    """Get all projects belonging to an initiative from nested structure"""
     data = load_initiatives()
-    projects = data.get('projects', {})
-    return {
-        pid: project for pid, project in projects.items()
-        if project.get('initiative_id') == initiative_id
-    }
+    initiative = data.get('initiatives', {}).get(initiative_id)
+    if initiative:
+        return initiative.get('projects', {})
+    return {}
 
 
 def get_tasks_for_project(project_id: str) -> Dict[str, Any]:
-    """Get all tasks belonging to a project"""
-    data = load_initiatives()
-    tasks = data.get('tasks', {})
-    return {
-        tid: task for tid, task in tasks.items()
-        if task.get('project_id') == project_id
-    }
+    """Get all tasks belonging to a project from nested structure"""
+    project = get_project(project_id)
+    if project:
+        return project.get('tasks', {})
+    return {}
 
 
 def validate_yaml_structure(data: Dict[str, Any]) -> list[str]:
